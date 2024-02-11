@@ -7,6 +7,7 @@ import SignUp from './pages/SignUp'
 import Home from './pages/Home'
 import Projects from './pages/Projects'
 import Header from './components/Header'
+import Footer from './components/FooterCom'
 
 
 
@@ -27,6 +28,7 @@ function App() {
 <Route path = "/projects" element= {<Projects />} />
 
  </Routes>
+ <Footer />
  </BrowserRouter>
   )
 }
