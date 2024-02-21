@@ -45,7 +45,7 @@ export const signin = async (req, res, next) => {
         }
 
         const token = jwt.sign(
-            { id: validUser._id }, process.env.JWT_SECRET, {/*I can add expiration here as if browser is closed gotta sign in again (one-time session) with "{expiresIn: 'Id'}" */ }
+            { id: validUser._id, isAdmin: validUser.isAdmin }, process.env.JWT_SECRET, {/*I can add expiration here as if browser is closed gotta sign in again (one-time session) with "{expiresIn: 'Id'}" */ }
         )
         const { password: pass, ...rest } = validUser._doc;
 
@@ -63,7 +63,7 @@ export const google = async (req, res, next) => {
         const user = await User.findOne({ email })
         if (user) {
             const token = jwt.sign
-            ({ id: user.id }, process.env.JWT_SECRET); {/*,{ expiresIn:"1h"} -> in case you wanna set time for the token to expire*/ }
+            ({ id: user.id, isAdmin: user.isAdmin }, process.env.JWT_SECRET); {/*,{ expiresIn:"1h"} -> in case you wanna set time for the token to expire*/ }
             const { password, ...rest } = user._doc;
             res
             .status(200)
@@ -81,7 +81,7 @@ export const google = async (req, res, next) => {
             });
             await newUser.save();
             const token = jwt.sign({
-                id: newUser._id }, process.env.JWT_SECRET);
+                id: newUser._id, isAdmin: newUser.isAdmin }, process.env.JWT_SECRET);
                 const {password, ...rest} =newUser._doc;
                 res
                 .status(200)
